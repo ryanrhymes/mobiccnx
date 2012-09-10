@@ -1,0 +1,7 @@
+digraph G {
+  bgcolor=transparent;
+  compound=true
+  node [ fontsize="10", fontname="FreeSans"];
+  edge [ labelfontsize="10", labelfontname="FreeSans"];
+  dir_24893b1bedac378997de91931ca0466d [shape=box, label="lib", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_24893b1bedac378997de91931ca0466d.html"];
+}
