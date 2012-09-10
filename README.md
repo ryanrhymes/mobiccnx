@@ -2,8 +2,11 @@ mobiccnx
 ========
 
 An enhanced CCNx with the support of perfect mobility. 
+
 Initialized by Liang Wang ( liang.wang@cs.helsinki.fi )
+
 Deptartment of Computer Science, University of Helsinki
+
 09.09.2012
 
 1. All the comments about the project are in this README.
