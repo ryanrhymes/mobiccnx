@@ -15,12 +15,12 @@ More info will be added later.
 
 Project Schedule:
 
-* `0 Week`:
+* `Week 0`:
 
-* `1 Week`:
+* `Week 1`:
 
-* `2 Week`:
+* `Week 2`:
 
-* `3 Week`:
+* `Week 3`:
 
-* `4 Week`:
+* `Week 4`:
