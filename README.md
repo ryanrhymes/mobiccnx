@@ -11,3 +11,16 @@ Initialized by Liang Wang, Deptartment of Computer Science, University of Helsin
 4. All the codes should have some readable comments
 
 More info will be added later.
+
+
+Project Schedule:
+
+* `0 Week`:
+
+* `1 Week`:
+
+* `2 Week`:
+
+* `3 Week`:
+
+* `4 Week`:
