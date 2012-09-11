@@ -22,10 +22,10 @@ More info will be added later.
 Project Schedule:
 
 * `Week 0`:
-  	- Read relevant papers to get familiar with the topic
-	- Get familiar with the individual's tasks;
-  	- Set up code repository for collaboration;
-	- Sketch the skeleton of the paper;
+  	- Read relevant papers to get familiar with the topic; (all)
+	- Get familiar with the individual's tasks; (all)
+  	- Set up code repository for collaboration; (Liang)
+	- Sketch the skeleton of the paper; (Liang)
 
 * `Week 1`:
   	- Hands-on work: Read the code. Deploy the CCNx on Ukko, and test; (Liang and Otto)
