@@ -1,0 +1,21 @@
+# ccnd.conf.sample
+# 
+# This sample configuration file demonstrates the structure of a config file
+# specifically for hosts included in the mobiccnx project.
+#
+# 'host-1', 'host-2', etc. can be either hostnames or IP addresses.
+#
+
+
+add ccnx:/greed/mobiccnx udp host-1 9695
+add ccnx:/greed/mobiccnx udp host-2 9695
+# ...
+add ccnx:/greed/mobiccnx udp host-n 9695 
+
+
+# The multicast address 224.0.23.170 is assigned by IANA for use with CCNx.
+# We use this route to dispatch regular CCNx interest without greedy routing.
+
+add ccnx:/mobiccnx udp 224.0.23.170 9695
+
+#
