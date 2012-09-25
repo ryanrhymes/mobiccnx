@@ -4075,6 +4075,17 @@ process_incoming_interest(struct ccnd_handle *h, struct face *face,
         ie = hashtb_lookup(h->interest_tab, msg,
                            pi->offset[CCN_PI_B_InterestLifetime]);
         if (ie != NULL) {
+            // Extract the first name component from the interest message. -Okw
+            res = ccn_name_comp_get(msg, comps, 0, &p, &t);
+            if (res >= 0){
+                if (strncmp(p, "greed", 5) == 0){
+                    printf(" ** First name component = \"%s\"; interest indicates greedy routing.\n", p);
+                } else {
+                    printf(" ** First name component = \"%s\"; no greedy routing.\n", p);
+                }
+            }
+            //
+
             /* Since this is in the PIT, we do not need to check the CS. */
             indexbuf_release(h, comps);
             comps = NULL;
