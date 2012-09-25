@@ -1,0 +1,16 @@
+# topology.smaple
+# 
+# This is a sample of topology file used in mobiccnx project.
+# A -> B indicates node A and B are connected. The graph is
+# undirected graph.
+#
+# Liang Wang @ Dept. of Computer Science, Univ. of Helsinki, Finland
+# 2012.09.25
+#
+
+host-1 -> host-2
+host-2 -> host-3
+host-2 -> host-4
+host-3 -> host-5
+host-4 -> host-5
+host-5 -> host-6
