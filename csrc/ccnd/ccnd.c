@@ -60,6 +60,7 @@
 #include <ccn/uri.h>
 
 #include "ccnd_private.h"
+#include "greedy_routing.c"
 
 /** Ops for strategy callout */
 enum ccn_strategy_op {
@@ -4085,13 +4086,16 @@ process_incoming_interest(struct ccnd_handle *h, struct face *face,
             res = ccn_name_comp_get(msg, comps, 0, &p, &t);
             if (res >= 0){
                 if (strncmp(p, "greed", 5) == 0){
-                    printf(" ** First name component = \"%s\"; interest indicates greedy routing.\n", p);
+		    // First name component in the interest equals to "greed".
+		    // Introduce greedy routing. Logic etc. is defined in ccnd/greedy_routing.c
+		    greedy(NULL);
+		    
                 } else {
                     printf(" ** First name component = \"%s\"; no greedy routing.\n", p);
                 }
             }
-            //
-
+	    //
+	    
             /* Since this is in the PIT, we do not need to check the CS. */
             indexbuf_release(h, comps);
             comps = NULL;

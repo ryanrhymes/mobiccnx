@@ -26,7 +26,8 @@ default all: _always
 	mkdir -p ./lib ./bin
 	test -d ./include || ln -s ./csrc/include
 	(cd csrc && $(MAKE) install INSTALL_BASE=`pwd`/..)
-	(cd javasrc && $(MAKE) install INSTALL_BASE=`pwd`/..)
+# This is uncommented only to prevent javasrc from being built.  -Okw
+#	(cd javasrc && $(MAKE) install INSTALL_BASE=`pwd`/..)
 	(cd apps && $(MAKE) install INSTALL_BASE=`pwd`/..)
 
 clean depend test check shared: _always
