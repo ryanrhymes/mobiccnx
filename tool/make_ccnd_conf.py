@@ -15,6 +15,7 @@ import re
 import os
 import sys
 import time
+import itertools
 
 class ConfigReader(object):
     """This class read the topology file, generate ccnd conf files."""
@@ -54,14 +55,16 @@ class ConfigReader(object):
     def make_ccnd_conf(self):
         """Make ccnd config files for all the nodes in a network.
         return: None"""
+        pathdict = self.build_pathdict(self.topology.keys())
+
         for router in sorted(self.topology.keys()):
-            tstr = self.make_router_conf(router, self.topology)
+            tstr = self.make_router_conf(router, pathdict)
             tfh = open(self.conf_dir + "/ccnd.conf." + router, "wb")
             tfh.write(tstr)
             tfh.close()
         pass
 
-    def make_router_conf(self, router, topology):
+    def make_router_conf(self, router, pathdict):
         """Given a router and topology, generate config string.
         router: router name;
         return: config string;"""
@@ -69,8 +72,13 @@ class ConfigReader(object):
                  + "# host name: " + router + "\n" \
                  + "# created at " + time.ctime() + "\n\n"
         
-        for nb in self.get_neighbors(router, topology):
-            conf_str += "add ccnx:/greed/mobiccnx udp %s 9695\n" % nb
+        for x, y in pathdict.keys():
+            if x != router:
+                continue
+            next_hop = pathdict[(x, y)][1]
+            conf_str += "add ccnx:/%s udp %s 9695\n" % (y, next_hop)
+            # Otto, do we still need this?
+            # conf_str += "add ccnx:/greed/mobiccnx udp %s 9695\n" % nb
 
         conf_str += "\n\n" \
                   + "# The multicast address 224.0.23.170 is assigned by IANA for use with CCNx.\n" \
@@ -94,6 +102,53 @@ class ConfigReader(object):
             elif router == y:
                 r.add(x)
         return r
+
+    def weight(self, m, n):
+        """Given two vertices, return the weight of corresponding edge."""
+        link = tuple(sorted([m, n]))
+        w = 1 if link in self.topology[m] else float("Inf")
+        w = 0 if m==n else w
+        return w
+
+    def floyd_warshall(self, routers):
+        """Use Floyd-Warshall algorithm to calculate the shortest path
+        between any two nodes."""
+        path = {}
+        next = {}
+
+        # Initialize
+        for i, j in itertools.product(routers, repeat=2):
+            path[(i, j)] = self.weight(i, j)
+
+        for k in routers:
+            for i in routers:
+                for j in routers:
+                    if path[(i, k)] + path[(k, j)] < path[(i, j)]:
+                        path[(i, j)] = path[(i, k)] + path[(k, j)]
+                        next[(i, j)] = k
+        return path, next
+
+    def fw_get_path(self, i, j, path, next):
+        """Reconstruct the shortest path between two nodes, given the
+        output from floyd_warshall algorithm."""
+        if path[(i, j)]==float('Inf'):
+            return None
+        if not next.has_key((i, j)):
+            return []
+        itm = next[(i, j)]
+        return self.fw_get_path(i, itm, path, next) + [itm] + self.fw_get_path(itm, j, path, next)
+
+    def build_pathdict(self, routers):
+        """Reconstruct the shortest path between two nodes, given the
+        output from floyd_warshall algorithm."""
+        pathdict = {}
+        routers = sorted(routers)
+        path, next = self.floyd_warshall(routers)
+        for i, j in itertools.permutations(routers, 2):
+            p = self.fw_get_path(i, j, path, next)
+            pathdict[(i, j)] = [i] + p + [j]
+        print "pathdict construction done."
+        return pathdict
 
 pass
 
