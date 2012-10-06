@@ -77,7 +77,6 @@ class ConfigReader(object):
                 continue
             next_hop = pathdict[(x, y)][1]
             conf_str += "add ccnx:/%s udp %s 9695\n" % (y, next_hop)
-            conf_str += "add ccnx:/greed/%s udp %s 9695\n" % (y, next_hop)
             # Otto, do we still need this?
             # conf_str += "add ccnx:/greed/mobiccnx udp %s 9695\n" % nb
 
