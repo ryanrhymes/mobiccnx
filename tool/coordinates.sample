@@ -1,0 +1,14 @@
+# This file is a sample for host <-> coordinates mapping.
+# File format is as follows:
+# hostname x y
+#
+# Liang Wang @ Dept. of Computer Science, Univ. of Helsinki, Finland
+# 2012.10.06
+#
+
+host-1 1.334 2.556
+host-2 3.678 4.890
+host-3 9.567 2.111
+host-4 8.675 8.011
+host-5 5.333 6.444
+host-6 7.435 6.128
