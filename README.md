@@ -53,3 +53,8 @@ Project Schedule:
 
 * `Week 5`:
   	- TBD
+
+
+Memo:
+
+Minimum-depth tree as spanning tree; is that good for stretch?
