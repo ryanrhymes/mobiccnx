@@ -18,13 +18,15 @@
 import re
 import os
 import sys
-import cmath
+import mpmath
 
 class GreedyEmbedding(object):
     """Embed a graph into hyperbolic space.
     REMARK: every edge has weight one!"""
 
     def __init__(self):
+        """Init the class, set the float number precision."""
+        mpmath.mp.prec = 256
         pass
 
     def load_graph(self, ifn):
@@ -86,7 +88,7 @@ class GreedyEmbedding(object):
         """Given a spanning tree, embed it into two dimensional half
         Poincare plane."""
         degree, root = self.max_degree(tree)
-        C = {root:{'c': (0-0j), 'a': cmath.pi, 'b': 2 * cmath.pi}}
+        C = {root:{'c': mpmath.mpc(0, 0), 'a': mpmath.pi, 'b': 2 * mpmath.pi}}
         S = [root] # nodes need to be visited
         Z = []     # nodes have been visted
         while len(S):
@@ -99,8 +101,8 @@ class GreedyEmbedding(object):
                 an = C[pn]['a']
                 bn = (an + C[pn]['b']) / 2.0
                 C[pn]['a'] = bn
-                cp, r2 = self.poincare_circle(cmath.exp(complex(0, an)), 
-                                              cmath.exp(complex(0, bn)))
+                cp, r2 = self.poincare_circle(mpmath.exp(mpmath.mpc(0, an)), 
+                                              mpmath.exp(mpmath.mpc(0, bn)))
                 c = r2 / (C[pn]['c'].conjugate() - cp.conjugate()) + cp
                 an = (an + bn) / 2.0
                 C[n] = {'c': c, 'a': an, 'b': bn}
@@ -118,7 +120,7 @@ class GreedyEmbedding(object):
     def distance(self, c1, c2):
         """Given any two coordinates in two dimensional Poincare disk,
         calculate the distance between them."""
-        d = cmath.acosh(2 * abs(c1 - c2)**2 / ((1 - abs(c1)**2) * (1 - abs(c2)**2)) + 1)
+        d = mpmath.acosh(2 * abs(c1 - c2)**2 / ((1 - abs(c1)**2) * (1 - abs(c2)**2)) + 1)
         d = abs(d)
         return d
 
@@ -127,7 +129,10 @@ class GreedyEmbedding(object):
         on the screen. The coordinates are complex numbers."""
         for n in sorted(C.keys()):
             #print "%s\t%s\t%f\t%f" % (n, C[n]['c'], C[n]['a'], C[n]['b'])
-            print "%s %f %f" % (n, C[n]['c'].real, C[n]['c'].imag)
+            #print "%s (%.40f %f" % (n, C[n]['c'].real, C[n]['c'].imag)
+            cr = mpmath.nstr(C[n]['c'].real, 50)
+            ci = mpmath.nstr(C[n]['c'].imag, 50)
+            print "%s %s %s" % (n, cr, ci)
         pass
 
     pass
