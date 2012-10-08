@@ -115,6 +115,13 @@ class GreedyEmbedding(object):
         r2 = 1.0 / abs(m)**2 - 1.0 
         return cp, r2
 
+    def distance(self, c1, c2):
+        """Given any two coordinates in two dimensional Poincare disk,
+        calculate the distance between them."""
+        d = cmath.acosh(2 * abs(c1 - c2)**2 / ((1 - abs(c1)**2) * (1 - abs(c2)**2)) + 1)
+        d = abs(d)
+        return d
+
     def output(self, C):
         """Given the node <-> coordinates mapping, output the mapping
         on the screen. The coordinates are complex numbers."""
