@@ -128,8 +128,6 @@ class GreedyEmbedding(object):
         """Given the node <-> coordinates mapping, output the mapping
         on the screen. The coordinates are complex numbers."""
         for n in sorted(C.keys()):
-            #print "%s\t%s\t%f\t%f" % (n, C[n]['c'], C[n]['a'], C[n]['b'])
-            #print "%s (%.40f %f" % (n, C[n]['c'].real, C[n]['c'].imag)
             cr = mpmath.nstr(C[n]['c'].real, 50)
             ci = mpmath.nstr(C[n]['c'].imag, 50)
             print "%s %s %s" % (n, cr, ci)
