@@ -90,7 +90,7 @@ class GreedyEmbedding(object):
         degree, root = self.max_degree(tree)
         C = {root:{'c': mpmath.mpc(0, 0), 'a': mpmath.pi, 'b': 2 * mpmath.pi}}
         S = [root] # nodes need to be visited
-        Z = []     # nodes have been visted
+        Z = []     # nodes have been visited
         while len(S):
             pn = S.pop()
             Z.append(pn)
